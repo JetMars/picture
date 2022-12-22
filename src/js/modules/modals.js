@@ -1,7 +1,6 @@
 function closeModal(modalSelector) {
   const modal = document.querySelector(modalSelector);
 
-  // modal.classList.toggle('show');
   modal.style.display = '';
 
   document.body.style.overflow = '';
@@ -11,10 +10,7 @@ function closeModal(modalSelector) {
 function openModal(modalSelector, modalTimerId) {
   const modal = document.querySelector(modalSelector);
 
-  // modal.classList.remove('hide');
-  // modal.classList.toggle('show');
   modal.style.display = 'block';
-
 
   const padding = window.innerWidth - document.documentElement.clientWidth;
   document.body.style.overflow = 'hidden';
@@ -27,24 +23,29 @@ function openModal(modalSelector, modalTimerId) {
 
 const modals = () => {
 
-  function bindModals(triggerSelector, popupSelector, buttonClose, modalTimerId, closeClickOverlay = true) {
+  let btnPressed = false;
+
+  function bindModals(triggerSelector, popupSelector, buttonClose, modalTimerId, destroy = false) {
 
     const trigger = document.querySelectorAll(triggerSelector);
     const popup = document.querySelector(popupSelector);
     const triggerClose = popup.querySelector(buttonClose);
     const modals = document.querySelectorAll('[data-modal]');
 
-
     trigger.forEach(item => {
       item.addEventListener('click', (event) => {
         event.preventDefault();
 
-        // modals.forEach(item => {
-        //   item.classList.add('hide');
-        //   item.classList.remove('show');
-        //   document.body.style.overflow = '';
-        //   document.body.style.paddingRight = '';
-        // });
+        btnPressed = true;
+
+        if (destroy) {
+          item.remove();
+        }
+
+        modals.forEach(item => {
+          item.style.display = 'none';
+          item.classList.add('animated', 'fadeIn');
+        });
 
         openModal(popupSelector, modalTimerId);
       });
@@ -53,22 +54,12 @@ const modals = () => {
 
     triggerClose.addEventListener('click', (event) => {
       event.preventDefault();
-
-      // modals.forEach(item => {
-      //   item.classList.remove('hide');
-      // });
-
       closeModal(popupSelector);
     });
 
 
     popup.addEventListener('click', (e) => {
-      if (e.target === popup && closeClickOverlay) {
-
-        // modals.forEach(item => {
-        //   item.classList.remove('hide');
-        // });
-
+      if (e.target === popup) {
         closeModal(popupSelector);
       }
     });
@@ -76,17 +67,32 @@ const modals = () => {
 
     document.addEventListener('keydown', (e) => {
       if (e.code === 'Escape' && getComputedStyle(popup).display === 'block') {
-        console.log('hello');
         closeModal(popupSelector);
       }
     });
+
   }
 
-  const modalTimerId = setTimeout(() => openModal('.popup-consultation', modalTimerId), 5000);
+  function showModalBottom() {
+
+    const winScrollTop = Math.floor(window.pageYOffset || document.documentElement.scrollTop);
+
+    if ((winScrollTop + document.documentElement.clientHeight >= document.documentElement.offsetHeight) &&
+      !btnPressed) {
+      document.querySelector('.popup-gift').classList.add('animated', 'fadeIn');
+      openModal('.popup-gift', modalTimerId);
+      document.querySelector('.fixed-gift').remove();
+      document.removeEventListener('scroll', showModalBottom);
+    }
+  }
+
+  document.addEventListener('scroll', showModalBottom);
+
+  const modalTimerId = setTimeout(() => openModal('.popup-consultation', modalTimerId), 60000);
 
   bindModals('.button-design', '.popup-design', '.popup-design .popup-close', modalTimerId);
   bindModals('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close', modalTimerId);
-
+  bindModals('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', modalTimerId, true);
 };
 
 export { modals, closeModal, openModal };
