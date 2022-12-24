@@ -1,8 +1,10 @@
 import { modals } from "./modules/modals";
 import sliders from "./modules/sliders";
+import forms from "./modules/forms";
 
 document.addEventListener('DOMContentLoaded', () => {
   modals();
   sliders('.feedback-slider-item', '', '.main-next-btn', '.main-prev-btn');
-  sliders('.main-slider-item', 'vertical', '', '', 4000);
+  sliders('.main-slider-item', 'vertical', '', '', 10000);
+  forms();
 });
