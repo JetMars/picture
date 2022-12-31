@@ -5437,6 +5437,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_mask__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/mask */ "./src/js/modules/mask.js");
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
 /* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
+/* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
+
 
 
 
@@ -5444,6 +5446,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  var stateForm = {};
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["modals"])();
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.feedback-slider-item', '', '.main-next-btn', '.main-prev-btn');
   Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.main-slider-item', 'vertical', '', '', 10000);
@@ -5452,7 +5455,52 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="name"');
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])('[name="message"');
   Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '#styles .row');
+  Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.promocode', '.calc-price');
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/calc.js":
+/*!********************************!*\
+  !*** ./src/js/modules/calc.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var calc = function calc(size, material, options, promocode, result, stateForm) {
+  var sizeBlock = document.querySelector(size);
+  var materialBlock = document.querySelector(material);
+  var optionsBlock = document.querySelector(options);
+  var promocodeBlock = document.querySelector(promocode);
+  var resultBlock = document.querySelector(result);
+
+  function calcFunc() {
+    var sum = 0;
+    sum = Math.round(+sizeBlock.value * +materialBlock.value + +optionsBlock.value); //
+    //
+
+    if (!sizeBlock.value || !materialBlock.value) {
+      resultBlock.textContent = 'Выберите размер и материал картины';
+    } else if (promocodeBlock.value === 'IWANTPOPART') {
+      resultBlock.textContent = sum * 0.7;
+    } else {
+      resultBlock.textContent = sum;
+    }
+  }
+
+  sizeBlock.addEventListener('change', function (e) {
+    calcFunc(); // console.log(sizeBlock.children);
+
+    console.log(e.target.dataset.size);
+  });
+  materialBlock.addEventListener('change', calcFunc);
+  optionsBlock.addEventListener('change', calcFunc);
+  promocodeBlock.addEventListener('input', calcFunc);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (calc);
 
 /***/ }),
 
@@ -5618,7 +5666,8 @@ var forms = function forms(stateForm) {
       var api;
 
       if (form.closest('.popup-design') || form.classList.contains('form__calc')) {
-        api = path.designer;
+        // api = path.designer;
+        api = path.question;
       } else {
         api = path.question;
       }
@@ -5851,13 +5900,13 @@ var showMoreStyles = function showMoreStyles(trigger, selector) {
       var div = document.createElement('div');
       div.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1', 'styles-2');
       wrapper.append(div);
-      div.innerHTML = "\n        <div class='animated fadeIn styles-block'>\n          <img src=".concat(src, " alt='").concat(link.slice(1), "'>\n          <h4>").concat(title, "</h4>\n          <a href=\"").concat(link, "\">\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435</a>\n\t\t\t\t</div>\n      ");
+      div.innerHTML = "\n        <div class='animated fadeInUp styles-block'>\n          <img src=".concat(src, " alt='").concat(link.slice(1), "'>\n          <h4>").concat(title, "</h4>\n          <a href=\"").concat(link, "\">\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435</a>\n\t\t\t\t</div>\n      ");
     });
   }
 
   btn.addEventListener('click', function () {
-    Object(_services_getResource__WEBPACK_IMPORTED_MODULE_4__["default"])('http://localhost:3000/styles').then(function (json) {
-      createStyles(json);
+    Object(_services_getResource__WEBPACK_IMPORTED_MODULE_4__["default"])('./assets/db.json').then(function (json) {
+      createStyles(json.styles);
     }).catch(function (err) {
       return console.log(err);
     });
@@ -6072,7 +6121,6 @@ function postData(url, formData) {
   });
 }
 
-;
 /* harmony default export */ __webpack_exports__["default"] = (postData);
 
 /***/ })

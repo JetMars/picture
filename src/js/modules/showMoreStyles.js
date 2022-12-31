@@ -15,7 +15,7 @@ const showMoreStyles = (trigger, selector) => {
       wrapper.append(div);
 
       div.innerHTML = `
-        <div class='animated fadeIn styles-block'>
+        <div class='animated fadeInUp styles-block'>
           <img src=${src} alt='${link.slice(1)}'>
           <h4>${title}</h4>
           <a href="${link}">Подробнее</a>
@@ -26,9 +26,9 @@ const showMoreStyles = (trigger, selector) => {
   }
 
   btn.addEventListener('click', function () {
-    getResource('http://localhost:3000/styles')
+    getResource('./assets/db.json')
       .then(json => {
-        createStyles(json);
+        createStyles(json.styles);
       })
       .catch(err => console.log(err));
     this.remove();

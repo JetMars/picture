@@ -9,6 +9,6 @@ async function postData(url, formData) {
   }
 
   return await res.text();
-};
+}
 
 export default postData;
