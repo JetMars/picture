@@ -60,8 +60,7 @@ const forms = (stateForm) => {
       let api;
 
       if (form.closest('.popup-design') || form.classList.contains('form__calc')) {
-        // api = path.designer;
-        api = path.question;
+        api = path.designer;
       } else {
         api = path.question;
       }
