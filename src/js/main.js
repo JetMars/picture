@@ -7,6 +7,7 @@ import showMoreStyles from "./modules/showMoreStyles";
 import calc from "./modules/calc";
 import myFilter from "./modules/myFilter";
 import puctureSize from "./modules/puctureSize";
+import accordion from "./modules/accordion";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -23,4 +24,5 @@ document.addEventListener('DOMContentLoaded', () => {
   calc('#size', '#material', '#options', '.promocode', '.calc-price', stateForm);
   myFilter('.portfolio-wrapper>.all', '.portfolio-menu', '.portfolio-menu>li', '.portfolio-no', 'active');
   puctureSize('.sizes-block');
+  accordion('.accordion-heading');
 });

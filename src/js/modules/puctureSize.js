@@ -10,6 +10,7 @@ const puctureSize = (blockSelector) => {
     });
   }
 
+
   function hideImg(block) {
     const img = block.querySelector('img');
     img.src = img.src.slice(0, -6) + '.png';
@@ -18,6 +19,7 @@ const puctureSize = (blockSelector) => {
       el.style.display = 'block';
     });
   }
+
 
   blocks.forEach(block => {
     block.addEventListener('mouseover', (e) => {
