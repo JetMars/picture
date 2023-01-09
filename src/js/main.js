@@ -6,6 +6,7 @@ import checkTextInputs from './modules/checkTextInputs';
 import showMoreStyles from "./modules/showMoreStyles";
 import calc from "./modules/calc";
 import myFilter from "./modules/myFilter";
+import puctureSize from "./modules/puctureSize";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -21,4 +22,5 @@ document.addEventListener('DOMContentLoaded', () => {
   showMoreStyles('.button-styles', '#styles .row');
   calc('#size', '#material', '#options', '.promocode', '.calc-price', stateForm);
   myFilter('.portfolio-wrapper>.all', '.portfolio-menu', '.portfolio-menu>li', '.portfolio-no', 'active');
+  puctureSize('.sizes-block');
 });

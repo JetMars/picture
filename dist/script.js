@@ -5549,6 +5549,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
 /* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
 /* harmony import */ var _modules_myFilter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/myFilter */ "./src/js/modules/myFilter.js");
+/* harmony import */ var _modules_puctureSize__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/puctureSize */ "./src/js/modules/puctureSize.js");
+
 
 
 
@@ -5569,6 +5571,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__["default"])('.button-styles', '#styles .row');
   Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])('#size', '#material', '#options', '.promocode', '.calc-price', stateForm);
   Object(_modules_myFilter__WEBPACK_IMPORTED_MODULE_7__["default"])('.portfolio-wrapper>.all', '.portfolio-menu', '.portfolio-menu>li', '.portfolio-no', 'active');
+  Object(_modules_puctureSize__WEBPACK_IMPORTED_MODULE_8__["default"])('.sizes-block');
 });
 
 /***/ }),
@@ -6036,6 +6039,57 @@ var myFilter = function myFilter(contentSelector, menuSelector, triggersSelector
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (myFilter);
+
+/***/ }),
+
+/***/ "./src/js/modules/puctureSize.js":
+/*!***************************************!*\
+  !*** ./src/js/modules/puctureSize.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_array_slice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.slice */ "./node_modules/core-js/modules/es.array.slice.js");
+/* harmony import */ var core_js_modules_es_array_slice__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var puctureSize = function puctureSize(blockSelector) {
+  var blocks = document.querySelectorAll(blockSelector);
+
+  function showImg(block) {
+    var img = block.querySelector('img');
+    img.src = img.src.slice(0, -4) + '-1.png';
+    img.classList.add('animated', 'fadeIn');
+    block.querySelectorAll('p:not(.sizes-hit)').forEach(function (el) {
+      el.style.display = 'none';
+    });
+  }
+
+  function hideImg(block) {
+    var img = block.querySelector('img');
+    img.src = img.src.slice(0, -6) + '.png';
+    img.classList.remove('animated', 'fadeIn');
+    block.querySelectorAll('p:not(.sizes-hit)').forEach(function (el) {
+      el.style.display = 'block';
+    });
+  }
+
+  blocks.forEach(function (block) {
+    block.addEventListener('mouseover', function (e) {
+      showImg(block);
+    });
+    block.addEventListener('mouseout', function (e) {
+      hideImg(block);
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (puctureSize);
 
 /***/ }),
 
