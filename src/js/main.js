@@ -8,6 +8,7 @@ import calc from "./modules/calc";
 import myFilter from "./modules/myFilter";
 import puctureSize from "./modules/puctureSize";
 import accordion from "./modules/accordion";
+import burger from "./modules/burger";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -25,4 +26,5 @@ document.addEventListener('DOMContentLoaded', () => {
   myFilter('.portfolio-wrapper>.all', '.portfolio-menu', '.portfolio-menu>li', '.portfolio-no', 'active');
   puctureSize('.sizes-block');
   accordion('.accordion-heading');
+  burger('.burger', '.burger-menu');
 });
