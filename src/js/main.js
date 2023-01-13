@@ -9,6 +9,7 @@ import myFilter from "./modules/myFilter";
 import puctureSize from "./modules/puctureSize";
 import accordion from "./modules/accordion";
 import burger from "./modules/burger";
+import scrolling from "./modules/scrolling";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -27,4 +28,5 @@ document.addEventListener('DOMContentLoaded', () => {
   puctureSize('.sizes-block');
   accordion('.accordion-heading');
   burger('.burger', '.burger-menu');
+  scrolling('.pageup');
 });
